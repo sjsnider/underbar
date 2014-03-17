@@ -211,6 +211,25 @@ var _ = { };
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    // default is true for an empty collection
+    if (typeof collection === 'undefined') {
+      return true;
+    }
+    return _.reduce(collection, function(isTruthy, item){
+      // once one untruthy item is found false is going to be returned in the end
+      if (!isTruthy){
+        return false;
+      }
+      // handles no callback being provided
+      if (typeof iterator === 'undefined') {
+        return item;
+      }
+      // does the test using the callback
+      if (iterator(item))
+        return true;
+      else
+        return false;
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
