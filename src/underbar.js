@@ -182,9 +182,16 @@ var _ = { };
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
-    for (var i=0; i<collection.length; i++){
-      accumulator = iterator(accumulator, collection[i]);
-  }
+    if (Array.isArray(collection)){
+      for (var i=0; i<collection.length; i++){
+        accumulator = iterator(accumulator, collection[i]);
+      }
+    }
+    else if (typeof collection === "object") {
+      for (var i in collection){
+        accumulator = iterator(accumulator, collection[i]);
+      }
+    }
   return accumulator;
   };
 
