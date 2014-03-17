@@ -99,6 +99,22 @@ var _ = { };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    for (var i=0; i<array.length; i++){
+      // no need to run the test on the last element of the array
+      if (array.length-1){
+        var x = i + 1;
+        while (x<array.length){
+          if (array[i]===array[x]) {
+            array.splice(x,1);
+          }
+          else {
+            //only need to add 1 to x if a splice wasn't done
+            x++;
+          }
+        }
+      }
+    }
+    return array;
   };
 
 
