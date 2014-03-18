@@ -236,6 +236,25 @@ var _ = { };
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    // makes identitity the default iterator
+    if (typeof iterator === 'undefined') {
+      iterator = _.identity;
+    }
+    // empty set is false
+    if (collection.length === 0) 
+      return false; 
+
+    var isTruthy = false;
+    // goes through collection one iteam at at time, passes an even number so it always passes the truthy test
+    // and iseven test
+    for (var i=0; i<collection.length; i++) {
+      isTruthy = _.every([collection[i], 2], iterator);
+      // as soon as it becomes true that is returned
+      if (isTruthy) {
+        return isTruthy;
+      }
+    }
+    return isTruthy;
   };
 
 
