@@ -78,10 +78,10 @@ var _ = { };
   // refactor each
   _.filter = function(collection, test) {
     var array = [];
-    for (var i=0; i<collection.length; i++){
-      if (test (collection[i]))
-        array.push(collection[i]);
-    }
+    _.each(collection, function(item) {
+      if (test(item))
+        array.push(item);
+    });
     return array;
   };
 
