@@ -41,13 +41,15 @@ var _ = { };
   //
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
+
+  // get rid of else if
   _.each = function(collection, iterator) {
     if (Array.isArray(collection)){
       for (var i=0; i<collection.length; i++){
         iterator(collection[i], i, collection);
       }
     }
-    else if (typeof collection === "object") {
+    else {
       for (var i in collection){
         iterator(collection[i], i, collection);
       }
@@ -72,6 +74,8 @@ var _ = { };
   };
 
   // Return all elements of an array that pass a truth test.
+
+  // refactor each
   _.filter = function(collection, test) {
     var array = [];
     for (var i=0; i<collection.length; i++){
@@ -82,9 +86,14 @@ var _ = { };
   };
 
   // Return all elements of an array that don't pass a truth test.
+
+  // use anonymous functions
+  // could return filter with collection and anonymous fucntion pass value, return opp of test of value
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+
+    
     var isEven = function(num) { return num % 2 === 0; };
     var isOdd = function(num) { return num % 2 !== 0; };
     if(test(2)){
@@ -98,6 +107,9 @@ var _ = { };
   };
 
   // Produce a duplicate-free version of the array.
+ 
+  // use each loop iterator
+  // set key of object to value (true), cause keys are not duplicated
   _.uniq = function(array) {
     for (var i=0; i<array.length; i++){
       // no need to run the test on the last element of the array
@@ -119,10 +131,13 @@ var _ = { };
 
 
   // Return the results of applying an iterator to each element.
+
+  //use each
   _.map = function(array, iterator) {
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    // use .each and kill array
     if (Array.isArray(array)){
       var collection = [];
       for (var i=0; i<array.length; i++){
@@ -152,6 +167,12 @@ var _ = { };
 
   // Calls the method named by methodName on each value in the list.
   // Note: you will nead to learn a bit about .apply to complete this.
+
+
+  // use map (diff between map and each is map returns something), so return map
+  // could return method.apply
+  // do test right above return map
+  // test within map
   _.invoke = function(collection, functionOrKey, args) {
     var array = [];
     if (typeof(functionOrKey) == "function") {
@@ -181,6 +202,8 @@ var _ = { };
   //   var sum = _.reduce(numbers, function(total, number){
   //     return total + number;
   //   }, 0); // should be 6
+
+// use .each
   _.reduce = function(collection, iterator, accumulator) {
     if (Array.isArray(collection)){
       for (var i=0; i<collection.length; i++){
@@ -209,6 +232,9 @@ var _ = { };
 
 
   // Determine whether all of the elements match a truth test.
+
+  // set iterator = iterator or identity
+
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
     // default is true for an empty collection
@@ -234,6 +260,8 @@ var _ = { };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
+
+  // use opposite of every, return iterator of item, similar to reject
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
     // makes identitity the default iterator
@@ -276,6 +304,8 @@ var _ = { };
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
+
+// refactor with eaches
   _.extend = function(obj) {
     for(var i=1; i<arguments.length; i++){
       var param = arguments[i];
@@ -288,6 +318,8 @@ var _ = { };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
+
+  // use eachs, pretty much same as extend
   _.defaults = function(obj) {
         for(var i=1; i<arguments.length; i++){
       var param = arguments[i];
@@ -338,6 +370,8 @@ var _ = { };
   // _.memoize should return a function that when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
+  // might have to us jsonstring on arguments
+  // memo, setting key for first time is func.apply, key is arguments
   _.memoize = function(func) {
     var memo = {};
    return function() {
@@ -352,6 +386,9 @@ var _ = { };
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
+
+  // array.prototype.slice.call grab arguments
+  // set timeout has anonymous function return func.apply in agruments
   _.delay = function(func, wait) {
     var length = arguments.length;
      //if length is greater than 2 there are arguments to add to the function
