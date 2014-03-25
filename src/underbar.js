@@ -295,14 +295,14 @@ var _ = { };
 
   // use eachs, pretty much same as extend
   _.defaults = function(obj) {
-        for(var i=1; i<arguments.length; i++){
-      var param = arguments[i];
-      for (var x in param){
+    _.each(arguments, function(item) {
+      var param = item;
+      _.each(param, function(item, index){
         // only updates the object if that key doesn't already exist
-        if (!(x in obj))
-          obj[x] = param[x];
-      }
-    }
+        if (!(index in obj))
+          obj[index] = param[index];
+      });
+    });
     return obj;
   };
 
