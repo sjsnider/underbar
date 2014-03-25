@@ -104,21 +104,15 @@ var _ = { };
   // use each loop iterator
   // set key of object to value (true), cause keys are not duplicated
   _.uniq = function(array) {
-    for (var i=0; i<array.length; i++){
-      // no need to run the test on the last element of the array
-      if (array.length-1){
-        var x = i + 1;
-        while (x<array.length){
-          if (array[i]===array[x]) {
-            array.splice(x,1);
-          }
-          else {
-            //only need to add 1 to x if a splice wasn't done
-            x++;
-          }
-        }
+    var test = [];
+    _.each(array, function (item, index){
+      // this value already exists, must remove it
+      if (test[item]){
+        array.splice(index,1);
       }
-    }
+      else
+        test[item] = true;
+    });
     return array;
   };
 
