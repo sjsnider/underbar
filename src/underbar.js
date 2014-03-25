@@ -211,6 +211,7 @@ var _ = { };
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
     // default is true for an empty collection
+
     if (typeof collection === 'undefined') {
       return true;
     }
@@ -280,12 +281,12 @@ var _ = { };
 
 // refactor with eaches
   _.extend = function(obj) {
-    for(var i=1; i<arguments.length; i++){
-      var param = arguments[i];
-      for (var x in param){
-        obj[x] = param[x];
-      }
-    }
+    _.each(arguments, function(item) {
+      var param = item;
+      _.each(param, function(item, index){
+        obj[index] = param[index];
+      });
+    });
     return obj;
   };
 
