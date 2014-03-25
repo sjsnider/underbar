@@ -185,16 +185,9 @@ var _ = { };
 
 // use .each
   _.reduce = function(collection, iterator, accumulator) {
-    if (Array.isArray(collection)){
-      for (var i=0; i<collection.length; i++){
-        accumulator = iterator(accumulator, collection[i]);
-      }
-    }
-    else if (typeof collection === "object") {
-      for (var i in collection){
-        accumulator = iterator(accumulator, collection[i]);
-      }
-    }
+    _.each(collection, function(item) {
+      accumulator = iterator(accumulator, item);
+    });
   return accumulator;
   };
 
