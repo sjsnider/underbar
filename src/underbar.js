@@ -125,13 +125,11 @@ var _ = { };
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
     // use .each and kill array
-    if (Array.isArray(array)){
       var collection = [];
-      for (var i=0; i<array.length; i++){
-        collection.push(iterator(array[i]));
-      }
+      _.each(array, function(item) {
+        collection.push(iterator(item));
+      });
       return collection;
-    }
   };
 
   /*
