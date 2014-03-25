@@ -372,15 +372,13 @@ var _ = { };
         array.push(arguments[i]);
       }
     }
-    function run() {
-      if (length>2){
+
+    setTimeout(function() {
+      if (length>2) 
         func(array[0], array[1]);
-      }
-      else {
+      else
         func();
-      }
-    }
-    setTimeout(function() { run(); }, wait);
+    }, wait);
   };
 
 
