@@ -232,32 +232,22 @@ var _ = { };
     }, true);
   };
 
-  // Determine whether any of the elements pass a truth test. If no iterator is
-  // provided, provide a default one
+    // Determine whether any of the elements pass a truth test. If no iterator is
+    // provided, provide a default one
 
-  // use opposite of every, return iterator of item, similar to reject
-  _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
-    // makes identitity the default iterator
-    if (typeof iterator === 'undefined') {
-      iterator = _.identity;
-    }
-    // empty set is false
-    if (collection.length === 0) 
-      return false; 
+    // use opposite of every, return iterator of item, similar to reject
+    _.some = function(collection, iterator) {
+      // TIP: There's a very clever way to re-use every() here.
+      // makes identitity the default iterator
 
-    var isTruthy = false;
-    // goes through collection one iteam at at time, passes an even number so it always passes the truthy test
-    // and iseven test
-    for (var i=0; i<collection.length; i++) {
-      isTruthy = _.every([collection[i], 2], iterator);
-      // as soon as it becomes true that is returned
-      if (isTruthy) {
-        return isTruthy;
+      
+      if (typeof iterator === 'undefined') {
+        iterator = _.identity;
       }
-    }
-    return isTruthy;
-  };
+      return !_.every(collection, function(item) {
+        return !iterator(item);
+      });
+    };
 
 
   /**
