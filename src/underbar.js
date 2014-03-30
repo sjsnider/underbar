@@ -336,10 +336,19 @@ var _ = { };
   // instead if possible.
   // might have to us jsonstring on arguments
   // memo, setting key for first time is func.apply, key is arguments
+  var memo = {};
   _.memoize = function(func) {
-    var memo = {};
-   return function() {
-      var result = func.apply(this, arguments);
+    var key = arguments;
+   return function(key) {
+      var result;
+      // gets the value from memo if this key is already in there
+      if (key in memo) {
+        result = memo[key];
+      }
+      else {
+        result = func.apply(this, arguments);
+        memo[key] = result;
+      }
       return result;
    };
   };
