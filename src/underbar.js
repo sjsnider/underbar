@@ -158,6 +158,8 @@ var _ = { };
   // could return method.apply
   // do test right above return map
   // test within map
+
+
   _.invoke = function(collection, functionOrKey, args) {
     var array = [];
     return _.map(collection, function(item){
@@ -307,6 +309,20 @@ var _ = { };
 
   // Return a function that can be called at most one time. Subsequent calls
   // should return the previously returned value.
+  /*
+_.once = function (func) {
+  var notyet=true;
+  return function() {
+
+    if (notyet)
+    func();
+    notyet = false;
+  };
+};
+
+var blendOnce = _.once(blender);
+blendOnce();
+
   _.once = function(func) {
     // TIP: These variables are stored in a "closure scope" (worth researching),
     // so that they'll remain available to the newly-generated function every
@@ -327,6 +343,17 @@ var _ = { };
       return result;
     };
   };
+  */
+    _.once = function(func) {
+    // Your code here.
+    var notCalled = true;
+    var results;
+    if (notCalled){
+      results = func();
+      notCalled = false;
+    }
+    return results;
+  };
 
   // Memoize an expensive function by storing its results. You may assume
   // that the function takes only one argument and that it is a primitive.
@@ -336,9 +363,18 @@ var _ = { };
   // instead if possible.
   // might have to us jsonstring on arguments
   // memo, setting key for first time is func.apply, key is arguments
+
+  already={};
+  results ={};
+  return function(a){
+    if (!already[a])
+      results[a] = func(a);
+      alredy = true;
+    }
+    return results[a];
+  }
   var memo = {};
   _.memoize = function(func) {
-    var key = arguments;
    return function(key) {
       var result;
       // gets the value from memo if this key is already in there
@@ -346,7 +382,7 @@ var _ = { };
         result = memo[key];
       }
       else {
-        result = func.apply(this, arguments);
+        result = func.call(this, key);
         memo[key] = result;
       }
       return result;
